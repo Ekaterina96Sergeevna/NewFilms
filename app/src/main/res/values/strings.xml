@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Keira Knightley</string>
+    <string name="nav">CinemaFilms present</string>
+
+    <string name="nav_open_drawer">Open navigation drawer</string>
+    <string name="nav_close_drawer">Close navigation drawer</string>
+
+    <string name="action_share">Share</string>
+
+    <string name="home">Home page</string>
+    <string name="help">About the app</string>
+    <string name="exit">Exit</string>
+
+
+    <string name="collection">Collection of films</string>
+    <string name="collection_text">This application is your personal collection of films with your favorite actor.
+        Expand it and use it whenever you want to review or recommend a movie.</string>
+
+    <string name="favorite">Favorite</string>
+    <string name="add">Add film</string>
+
+    <string name="names_film">Names film</string>
+    <string name="description_film">Description</string>
+
+
+
+</resources>
