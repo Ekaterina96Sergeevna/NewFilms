@@ -17,13 +17,13 @@ public class FilmsDetailedFragment extends Fragment {
     private static final String EXTRA_INT = "EXTRA_INT";
     public static final String TAG = "FilmsDetailedFragment";
 
-    private int position = 0;
+    private int filmId = 0;
 
-    public static FilmsDetailedFragment newInstance(int position){
+    public static FilmsDetailedFragment newInstance(int filmId){
 
         FilmsDetailedFragment fragment = new FilmsDetailedFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(EXTRA_INT, position);
+        bundle.putInt(EXTRA_INT, filmId);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -45,17 +45,18 @@ public class FilmsDetailedFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         if (getArguments() != null){
-            position = getArguments().getInt(EXTRA_INT, 0);
+            filmId = getArguments().getInt(EXTRA_INT, 0);
         }
         FilmsItem choiceFilm = null;
         for (FilmsItem filmItem : FilmsItemRepository.getInstance().getItems()) {
-            if (filmItem.itemId == position) {
+            if (filmItem.itemId == filmId) {
                 choiceFilm = filmItem;
             }
         }
-        ((TextView)view.findViewById(R.id.name_films)).setText(FilmsItem.films[position].name);
-        ((ImageView)view.findViewById(R.id.image_films)).setImageResource(FilmsItem.films[position].imageResourseId);
-        ((TextView)view.findViewById(R.id.description)).setText(FilmsItem.films[position].description);
+
+        ((TextView)view.findViewById(R.id.name_films)).setText(choiceFilm.getName());
+        ((ImageView)view.findViewById(R.id.image_films)).setImageResource(choiceFilm.getImageResourseId());
+        ((TextView)view.findViewById(R.id.description)).setText(choiceFilm.getDescription());
 
 
     }

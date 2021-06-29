@@ -68,7 +68,7 @@ public class FilmsItemAdapter extends RecyclerView.Adapter<FilmsItemViewHolder> 
         });
     }
 
-    @Override
+
     public int getItemCount() {
         return items.size();
     }

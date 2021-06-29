@@ -3,9 +3,18 @@ package com.hfad.newfilms;
 public class FilmsItem {
     public String name;
     public String description;
+    public R draw;
     public int imageResourseId;
     public int itemId;
     public boolean isLiked;
+
+    public FilmsItem(String name, String description, int imageResourseId, int itemId, boolean isLiked) {
+        this.name = name;
+        this.description = description;
+        this.imageResourseId = imageResourseId;
+        this.itemId = itemId;
+        this.isLiked = isLiked;
+    }
 
     public FilmsItem(String name, int imageResourseId, int itemId, boolean isLiked) {
         this.name = name;
@@ -14,10 +23,6 @@ public class FilmsItem {
         this.isLiked = isLiked;
     }
 
-    public FilmsItem(String name, int imageResourseId) {
-        this.name = name;
-        this.imageResourseId = imageResourseId;
-    }
 
     public FilmsItem(String name, String description, int imageResourseId) {
         this.name = name;

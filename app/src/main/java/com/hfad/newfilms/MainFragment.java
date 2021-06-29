@@ -1,10 +1,12 @@
 package com.hfad.newfilms;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,10 +26,11 @@ import java.util.List;
 
 
 public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailFilmsClickListener{
-    private List<FilmsItem> items = new ArrayList<>();
-    public static final String TAG = "MainFragment";
+    //private List<FilmsItem> items = new ArrayList<>();
 
+    public static final String TAG = "MainFragment";
     private RecyclerView recyclerView;
+    AddFilmFragment addFilmFragment = new AddFilmFragment();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,6 +81,28 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        //получаем инфо из AddFilmFragment
+        getParentFragmentManager().setFragmentResultListener("key1", this, new FragmentResultListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
+                String name = bundle.getString("name");
+                String description = bundle.getString("description");
+
+                //new next Id for new added film
+                int size = FilmsItemRepository.getInstance().getItems().size();
+                //parse drawable to the String
+                FilmsItemRepository.getInstance().getItems().add(new FilmsItem(name, description,
+                        R.drawable.ic_baseline_local_movies_24,
+                        size,false));
+
+                // new FilmsItem(name, description, "drawable://" + R.drawable.ic_baseline_local_movies_24, false)
+                // R.drawable.ic_baseline_local_movies_24
+
+                recyclerView.getAdapter().notifyDataSetChanged();
+            }
+        });
 
     }
 }
