@@ -3,10 +3,16 @@ package com.hfad.newfilms;
 public class FilmsItem {
     public String name;
     public String description;
-    public R draw;
+    public String imageUrl;
     public int imageResourseId;
     public int itemId;
     public boolean isLiked;
+
+    public FilmsItem(FilmsJson filmsJson){
+        this.name = filmsJson.name;
+        this.description = filmsJson.description;
+        this.imageUrl = filmsJson.img;
+    }
 
     public FilmsItem(String name, String description, int imageResourseId, int itemId, boolean isLiked) {
         this.name = name;
@@ -30,6 +36,32 @@ public class FilmsItem {
         this.imageResourseId = imageResourseId;
     }
 
+    public boolean isLiked() {
+        return isLiked;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getImageResourseId() {
+        return imageResourseId;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    /*
     public static final FilmsItem[] films = {
             new FilmsItem("Pride & Prejudice 8.0*",
                     "Sparks fly when spirited Elizabeth Bennet meets single, rich, and proud Mr. Darcy. " +
@@ -50,29 +82,5 @@ public class FilmsItem {
                             "Accompanying him is a neighbor who inadvertently puts a wrench in his plan.",
                     R.drawable.jusquaceque)
     };
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getImageResourseId() {
-        return imageResourseId;
-    }
-
-    public int getItemId() {
-        return itemId;
-    }
-
-    public boolean isLiked() {
-        return isLiked;
-    }
-
-    @Override
-    public String toString() {
-        return this.name;
-    }
+     */
 }

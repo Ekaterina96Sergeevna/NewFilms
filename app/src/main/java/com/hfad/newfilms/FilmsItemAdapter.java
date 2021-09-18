@@ -35,22 +35,26 @@ public class FilmsItemAdapter extends RecyclerView.Adapter<FilmsItemViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull FilmsItemViewHolder holder, int position) {
+
+        FilmsItem film = items.get(position);
+        holder.bind(film);
+
 //        if (holder instanceof FilmsItemViewHolder){
 //            ((FilmsItemViewHolder) holder).bind(items.get(position));
 //        }
-
-        FilmsItem film = items.get(position);
-
-        Glide.with(holder.image.getContext())
-                .load(film.imageResourseId)
-//                .centerCrop()
-                .placeholder(R.drawable.ic_baseline_local_movies_24)
-                .into(holder.image);
-
-        holder.text_name.setText(film.getName());
-//        holder.image.setImageResource(film.imageResourseId);
-//        holder.text_name.setText(film.name);
-
+//
+//        FilmsItem film = items.get(position);
+//
+//        Glide.with(holder.image.getContext())
+//                .load(film.imageResourseId)
+////                .centerCrop()
+//                .placeholder(R.drawable.ic_baseline_local_movies_24)
+//                .into(holder.image);
+//
+//        holder.text_name.setText(film.getName());
+////        holder.image.setImageResource(film.imageResourseId);
+////        holder.text_name.setText(film.name);
+//
         if (film.isLiked()) {
             holder.likeButton.setImageResource(R.drawable.ic_baseline_favorite_24);
         } else {

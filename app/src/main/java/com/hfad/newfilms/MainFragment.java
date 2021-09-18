@@ -1,6 +1,7 @@
 package com.hfad.newfilms;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.android.material.navigation.NavigationView;
@@ -24,9 +26,13 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailFilmsClickListener{
-    //private List<FilmsItem> items = new ArrayList<>();
+    final List<FilmsItem> items = new ArrayList<>();
 
     public static final String TAG = "MainFragment";
     private RecyclerView recyclerView;
@@ -35,6 +41,36 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        App.getInstance().filmsService.getFilm().enqueue(new Callback<List<FilmsJson>>() {
+            @Override
+            public void onResponse(Call<List<FilmsJson>> call, Response<List<FilmsJson>> response) {
+              if (response.isSuccessful()){
+                  List<FilmsJson> filmsJsonList = response.body();
+                  items.clear();
+                  for(FilmsJson filmsJson : filmsJsonList){
+                      items.add(new FilmsItem(filmsJson));
+                  }
+
+                  recyclerView.getAdapter().notifyDataSetChanged();
+              } else {
+                  Toast.makeText(MainFragment.this.getContext(),
+                          "FAIL " + response.code(),
+                          Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<FilmsJson>> call, Throwable t) {
+
+                Toast.makeText(MainFragment.this.getContext(),
+                        "FAILURE " + t.getClass().getSimpleName(),
+                        Toast.LENGTH_SHORT).show();
+                if (t instanceof Exception){}
+                t.printStackTrace();
+            }
+        });
+
     }
 
     @Override
@@ -42,6 +78,7 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
                              Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_main, container, false);
+
     }
 
     public void OnDetailItemClick(int filmId) {

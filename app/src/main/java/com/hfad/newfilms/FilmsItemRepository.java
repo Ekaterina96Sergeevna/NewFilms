@@ -10,10 +10,11 @@ public class FilmsItemRepository {
     private static FilmsItemRepository instance;
 
     private FilmsItemRepository(){
-        for (int i = 0; i < FilmsItem.films.length; i++) {
-            items.add(new FilmsItem(FilmsItem.films[i].name, FilmsItem.films[i].imageResourseId,
-                    i, FilmsItem.films[i].isLiked));
-        }
+//        for (int i = 0; i < FilmsItem.films.length; i++) {
+//            items.add(new FilmsItem(FilmsItem.films[i].name,  FilmsItem.films[i].description,
+//                    FilmsItem.films[i].imageResourseId,
+//                    i, FilmsItem.films[i].isLiked));
+//        }
     }
 
     public static FilmsItemRepository getInstance(){

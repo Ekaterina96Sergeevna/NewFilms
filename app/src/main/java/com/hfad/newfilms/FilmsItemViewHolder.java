@@ -7,6 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 public class FilmsItemViewHolder extends RecyclerView.ViewHolder{
     public ImageView image;
     public TextView text_name;
@@ -19,8 +21,13 @@ public class FilmsItemViewHolder extends RecyclerView.ViewHolder{
         likeButton = itemView.findViewById(R.id.heart);
         }
 
-//    public void bind (FilmsItem item){
-//        image.setImageResource(item.imageResourseId);
-//        text_name.setText(item.name);
-//        }
+    public void bind (FilmsItem filmsItem){
+        this.text_name.setText(filmsItem.name);
+
+        Glide.with(itemView.getContext())
+                .load(filmsItem.imageUrl)
+                .placeholder(R.drawable.ic_baseline_auto_awesome_24)
+                .into(image);
+
+        }
 }
