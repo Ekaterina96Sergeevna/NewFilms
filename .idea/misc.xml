@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Users/User/AndroidStudioProjects/2_OtusFilms/NewFilms/app/src/main/res/drawable/ic_baseline_check_24.xml" value="0.125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/2_OtusFilms/NewFilms/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/2_OtusFilms/NewFilms/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/AndroidStudioProjects/2_OtusFilms/NewFilms/app/src/main/res/layout/fragment_detailed_films.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/2_OtusFilms/NewFilms/app/src/main/res/layout/fragment_main.xml" value="0.264" />
         <entry key="..\:/Users/User/AndroidStudioProjects/2_OtusFilms/NewFilms/app/src/main/res/layout/item_films.xml" value="0.25416666666666665" />
       </map>
     </option>

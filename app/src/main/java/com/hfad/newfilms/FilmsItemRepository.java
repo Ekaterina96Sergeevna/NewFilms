@@ -1,7 +1,13 @@
 package com.hfad.newfilms;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class FilmsItemRepository {
     private static List<FilmsItem> items = new ArrayList<>();
@@ -15,6 +21,7 @@ public class FilmsItemRepository {
 //                    FilmsItem.films[i].imageResourseId,
 //                    i, FilmsItem.films[i].isLiked));
 //        }
+
     }
 
     public static FilmsItemRepository getInstance(){

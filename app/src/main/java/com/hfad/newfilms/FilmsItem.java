@@ -8,6 +8,14 @@ public class FilmsItem {
     public int itemId;
     public boolean isLiked;
 
+    public FilmsItem(FilmsJson filmJson, boolean isLiked, int filmId) {
+        this.name = filmJson.name;
+        this.description = filmJson.description;
+        this.imageUrl = filmJson.img;
+        this.isLiked = isLiked;
+        this.itemId = filmId;
+    }
+
     public FilmsItem(FilmsJson filmsJson){
         this.name = filmsJson.name;
         this.description = filmsJson.description;
@@ -56,10 +64,10 @@ public class FilmsItem {
         return imageResourseId;
     }
 
-    @Override
-    public String toString() {
-        return this.name;
-    }
+//    @Override
+//    public String toString() {
+//        return this.name;
+//    }
 
     /*
     public static final FilmsItem[] films = {
