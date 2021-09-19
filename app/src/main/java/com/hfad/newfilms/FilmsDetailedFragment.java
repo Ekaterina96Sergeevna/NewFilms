@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+
 public class FilmsDetailedFragment extends Fragment {
     private static final String EXTRA_INT = "EXTRA_INT";
     public static final String TAG = "FilmsDetailedFragment";
@@ -55,8 +57,23 @@ public class FilmsDetailedFragment extends Fragment {
         }
 
         ((TextView)view.findViewById(R.id.name_films)).setText(choiceFilm.getName());
-        ((ImageView)view.findViewById(R.id.image_films)).setImageResource(choiceFilm.getImageResourseId());
+
+        //((ImageView)view.findViewById(R.id.image_films)).setImageResource(choiceFilm.getImageResourseId());
+        ImageView photo = (ImageView) view.findViewById(R.id.image_films);
+//        photo.setImageResource(choiceFilm.getImageResourceId());
+        //use Glide
+        Glide.with(getContext())
+                .load(choiceFilm.imageUrl)
+                .placeholder(R.drawable.ic_baseline_auto_awesome_24)
+                .into(photo);
+
+        photo.setContentDescription(choiceFilm.getName());
+
         ((TextView)view.findViewById(R.id.description)).setText(choiceFilm.getDescription());
+
+
+
+
 
 
     }

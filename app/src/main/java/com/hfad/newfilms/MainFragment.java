@@ -59,6 +59,8 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
         super.onViewCreated(view, savedInstanceState);
 
         View loader = view.findViewById(R.id.loader);
+        loader.setVisibility(View.GONE);
+
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         FilmsItemAdapter adaptor = new FilmsItemAdapter(FilmsItemRepository.getInstance().getItems(), this);
@@ -66,15 +68,15 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        loader.setVisibility(View.VISIBLE);
 
         if(FilmsItemRepository.getInstance().getItems().isEmpty()){
+            loader.setVisibility(View.VISIBLE);
 
-            App.getInstance().filmsService.getMo().enqueue(new Callback<List<FilmsJson>>() {
+
+            App.getInstance().filmsService.getFilm().enqueue(new Callback<List<FilmsJson>>() {
 
                 @Override
                 public void onResponse(Call<List<FilmsJson>> call, Response<List<FilmsJson>> response) {
-                    Log.d("ser", "onResponse");
 
                     if (response.isSuccessful()){
                         List<FilmsJson> filmsJsonList = response.body();
@@ -84,18 +86,19 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
                         }
 
                         recyclerView.getAdapter().notifyDataSetChanged();
+                       loader.setVisibility(View.GONE);
+
                     } else {
                         Toast.makeText(MainFragment.this.getContext(),
                                 "FAIL " + response.code(),
                                 Toast.LENGTH_SHORT).show();
 
-                        loader.setVisibility(View.GONE);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<FilmsJson>> call, Throwable t) {
-                    loader.setVisibility(View.GONE);
+                    //loader.setVisibility(View.GONE);
 
                     Toast.makeText(MainFragment.this.getContext(),
                             "FAILURE " + t.getClass().getSimpleName(),
