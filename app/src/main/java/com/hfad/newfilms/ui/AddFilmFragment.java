@@ -1,4 +1,4 @@
-package com.hfad.newfilms;
+package com.hfad.newfilms.ui;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.hfad.newfilms.R;
 
 public class AddFilmFragment extends Fragment {
 

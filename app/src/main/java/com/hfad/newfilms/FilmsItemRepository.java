@@ -1,13 +1,9 @@
 package com.hfad.newfilms;
 
-import android.widget.Toast;
+import com.hfad.newfilms.service.FilmsItem;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class FilmsItemRepository {
     private static List<FilmsItem> items = new ArrayList<>();
@@ -16,12 +12,13 @@ public class FilmsItemRepository {
     private static FilmsItemRepository instance;
 
     private FilmsItemRepository(){
-//        for (int i = 0; i < FilmsItem.films.length; i++) {
-//            items.add(new FilmsItem(FilmsItem.films[i].name,  FilmsItem.films[i].description,
-//                    FilmsItem.films[i].imageResourseId,
-//                    i, FilmsItem.films[i].isLiked));
-//        }
-
+        items.add(new FilmsItem(
+                "Дюна",
+                "Новая вселенная",
+                0,
+                0,
+                false
+        ));
     }
 
     public static FilmsItemRepository getInstance(){

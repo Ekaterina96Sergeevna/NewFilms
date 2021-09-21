@@ -1,4 +1,4 @@
-package com.hfad.newfilms;
+package com.hfad.newfilms.service;
 
 public class FilmsJson {
     public String name;

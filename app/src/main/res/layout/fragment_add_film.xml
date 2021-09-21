@@ -7,7 +7,7 @@
     android:id="@+id/coordinator"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".AddFilmFragment">
+    tools:context=".ui.AddFilmFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

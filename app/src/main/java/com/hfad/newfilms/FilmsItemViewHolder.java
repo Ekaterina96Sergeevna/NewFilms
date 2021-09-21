@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.hfad.newfilms.service.FilmsItem;
 
 public class FilmsItemViewHolder extends RecyclerView.ViewHolder{
     public ImageView image;

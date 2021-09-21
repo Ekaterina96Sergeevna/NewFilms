@@ -1,7 +1,8 @@
 package com.hfad.newfilms;
 
 import android.app.Application;
-import android.util.Log;
+
+import com.hfad.newfilms.service.FilmsService;
 
 import java.io.IOException;
 
@@ -20,16 +21,11 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Log.d("ser", "onCreate");
-
         instance = this;
-
         initRetrofit();
     }
 
     public static App getInstance() {
-        Log.d("ser", "getInstance");
         return instance;
     }
 
@@ -61,8 +57,6 @@ public class App extends Application {
                 .baseUrl("https://my-json-server.typicode.com/Ekaterina96Sergeevna/PlaceholderFilms/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
-        Log.d("ser", "create filmsService");
 
         filmsService = retrofit.create(FilmsService.class);
     }

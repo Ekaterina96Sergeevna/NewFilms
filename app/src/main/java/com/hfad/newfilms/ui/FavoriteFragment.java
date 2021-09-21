@@ -1,4 +1,4 @@
-package com.hfad.newfilms;
+package com.hfad.newfilms.ui;
 
 import android.os.Bundle;
 
@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-public class FavoriteFragment extends Fragment implements FilmsItemAdapter.OnDetailFilmsClickListener{
+import com.hfad.newfilms.service.FilmsItem;
+import com.hfad.newfilms.FilmsItemAdapter;
+import com.hfad.newfilms.FilmsItemRepository;
+import com.hfad.newfilms.R;
+
+public class FavoriteFragment extends Fragment implements FilmsItemAdapter.OnDetailFilmsClickListener {
     public static final String TAG = "FavouriteFragment";
     RecyclerView recyclerView;
 

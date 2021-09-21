@@ -1,14 +1,12 @@
 package com.hfad.newfilms;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.hfad.newfilms.service.FilmsItem;
 
 import java.util.List;
 
@@ -39,22 +37,6 @@ public class FilmsItemAdapter extends RecyclerView.Adapter<FilmsItemViewHolder> 
         FilmsItem film = items.get(position);
         holder.bind(film);
 
-//        if (holder instanceof FilmsItemViewHolder){
-//            ((FilmsItemViewHolder) holder).bind(items.get(position));
-//        }
-//
-//        FilmsItem film = items.get(position);
-//
-//        Glide.with(holder.image.getContext())
-//                .load(film.imageResourseId)
-////                .centerCrop()
-//                .placeholder(R.drawable.ic_baseline_local_movies_24)
-//                .into(holder.image);
-//
-//        holder.text_name.setText(film.getName());
-////        holder.image.setImageResource(film.imageResourseId);
-////        holder.text_name.setText(film.name);
-//
         if (film.isLiked()) {
             holder.likeButton.setImageResource(R.drawable.ic_baseline_favorite_24);
         } else {
@@ -71,7 +53,6 @@ public class FilmsItemAdapter extends RecyclerView.Adapter<FilmsItemViewHolder> 
                 listener.onLikeClick(items.get(position).getItemId());
         });
     }
-
 
     public int getItemCount() {
         return items.size();

@@ -1,7 +1,6 @@
-package com.hfad.newfilms;
+package com.hfad.newfilms.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,17 +11,17 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.google.android.material.navigation.NavigationView;
+import com.hfad.newfilms.App;
+import com.hfad.newfilms.service.FilmsItem;
+import com.hfad.newfilms.FilmsItemAdapter;
+import com.hfad.newfilms.FilmsItemRepository;
+import com.hfad.newfilms.service.FilmsJson;
+import com.hfad.newfilms.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailFilmsClickListener{
+public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailFilmsClickListener {
     final List<FilmsItem> items = new ArrayList<>();
 
     public static final String TAG = "MainFragment";
@@ -69,48 +68,50 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
-        if(FilmsItemRepository.getInstance().getItems().isEmpty()){
-            loader.setVisibility(View.VISIBLE);
+//        if(FilmsItemRepository.getInstance().getItems().isEmpty()){
+
+//            loader.setVisibility(View.VISIBLE);
+//
+//
+//            App.getInstance().filmsService.getFilm().enqueue(new Callback<List<FilmsJson>>() {
+//
+//                @Override
+//                public void onResponse(Call<List<FilmsJson>> call, Response<List<FilmsJson>> response) {
+//
+//                    if (response.isSuccessful()){
+//                        List<FilmsJson> filmsJsonList = response.body();
+//
+//                        for(int i = 0; i < filmsJsonList.size(); i++){
+//                            FilmsItemRepository.getInstance().getItems().add(new FilmsItem(filmsJsonList.get(i), false, i));
+//                        }
+//
+//                        recyclerView.getAdapter().notifyDataSetChanged();
+//                       loader.setVisibility(View.GONE);
+//
+//                    } else {
+//                        Toast.makeText(MainFragment.this.getContext(),
+//                                "FAIL " + response.code(),
+//                                Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                }
+
+//                @Override
+//                public void onFailure(Call<List<FilmsJson>> call, Throwable t) {
+//                    //loader.setVisibility(View.GONE);
+//
+//                    Toast.makeText(MainFragment.this.getContext(),
+//                            "FAILURE " + t.getClass().getSimpleName(),
+//                            Toast.LENGTH_SHORT).show();
+//                    if (t instanceof Exception){}
+//                    t.printStackTrace();
+//                }
+//            });
+//        }
 
 
-            App.getInstance().filmsService.getFilm().enqueue(new Callback<List<FilmsJson>>() {
-
-                @Override
-                public void onResponse(Call<List<FilmsJson>> call, Response<List<FilmsJson>> response) {
-
-                    if (response.isSuccessful()){
-                        List<FilmsJson> filmsJsonList = response.body();
-
-                        for(int i = 0; i < filmsJsonList.size(); i++){
-                            FilmsItemRepository.getInstance().getItems().add(new FilmsItem(filmsJsonList.get(i), false, i));
-                        }
-
-                        recyclerView.getAdapter().notifyDataSetChanged();
-                       loader.setVisibility(View.GONE);
-
-                    } else {
-                        Toast.makeText(MainFragment.this.getContext(),
-                                "FAIL " + response.code(),
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<FilmsJson>> call, Throwable t) {
-                    //loader.setVisibility(View.GONE);
-
-                    Toast.makeText(MainFragment.this.getContext(),
-                            "FAILURE " + t.getClass().getSimpleName(),
-                            Toast.LENGTH_SHORT).show();
-                    if (t instanceof Exception){}
-                    t.printStackTrace();
-                }
-            });
-        }
-
-
-      //  items.addAll(FilmsItemRepository.getInstance().getItems());
+        items.addAll(FilmsItemRepository.getInstance().getItems());
+        recyclerView.getAdapter().notifyDataSetChanged();
 
 
         //получаем инфо из AddFilmFragment

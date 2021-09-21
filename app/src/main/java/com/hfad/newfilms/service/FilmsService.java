@@ -1,6 +1,4 @@
-package com.hfad.newfilms;
-
-import android.util.Log;
+package com.hfad.newfilms.service;
 
 import java.util.List;
 
