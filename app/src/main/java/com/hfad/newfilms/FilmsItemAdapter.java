@@ -1,60 +1,85 @@
 package com.hfad.newfilms;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.hfad.newfilms.service.FilmsItem;
+import com.bumptech.glide.Glide;
+import com.hfad.newfilms.db.FilmsItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilmsItemAdapter extends RecyclerView.Adapter<FilmsItemViewHolder> {
-    private List<FilmsItem> items;
-    public OnDetailFilmsClickListener listener;
 
 
-    public interface OnDetailFilmsClickListener{
-        void OnDetailItemClick(int filmId);
-        void onLikeClick(int filmId);
-    }
+    private List<FilmsItem> filmsItemList = new ArrayList<>();
+    private OnDetailFilmsClickListener listener;
 
-    public FilmsItemAdapter(List<FilmsItem> items, OnDetailFilmsClickListener listener) {
-        this.items = items;
+    public FilmsItemAdapter(OnDetailFilmsClickListener listener) {
         this.listener = listener;
     }
 
     @NonNull
     @Override
     public FilmsItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FilmsItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_films, parent, false));
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_films, parent, false);
+        return new FilmsItemViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FilmsItemViewHolder holder, int position) {
 
-        FilmsItem film = items.get(position);
-        holder.bind(film);
+        FilmsItem film = filmsItemList.get(position);
+        holder.text_name.setText(film.getName());
 
-        if (film.isLiked()) {
+
+        Glide.with(holder.image.getContext())
+                .load(film.imageResourseId)
+                .placeholder(R.drawable.ic_baseline_auto_awesome_24)
+                .into(holder.image);
+
+        if(film.isLiked){
             holder.likeButton.setImageResource(R.drawable.ic_baseline_favorite_24);
         } else {
             holder.likeButton.setImageResource(R.drawable.ic_baseline_favorite_border_24);
         }
 
         holder.itemView.setOnClickListener(v -> {
-            if(listener != null)
-                listener.OnDetailItemClick(items.get(position).getItemId());
+            if (listener != null){
+                listener.OnDetailItemClick(filmsItemList.get(position));
+            }
         });
 
-        holder.likeButton.setOnClickListener(v -> {
-            if (listener != null)
-                listener.onLikeClick(items.get(position).getItemId());
+        holder.likeButton.setOnClickListener(v ->{
+            if(listener != null) {
+                listener.onLikeClick(film.itemId);
+            }
         });
+
+
     }
 
+    public void updateList(List<FilmsItem> list){
+        this.filmsItemList = list;
+        notifyDataSetChanged();
+    }
+
+    public interface OnDetailFilmsClickListener{
+        void OnDetailItemClick(FilmsItem film);
+        void onLikeClick(int filmId);
+    }
+
+    @Override
     public int getItemCount() {
-        return items.size();
+        return filmsItemList.size();
     }
 }

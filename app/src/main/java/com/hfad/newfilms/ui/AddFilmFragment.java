@@ -42,7 +42,6 @@ public class AddFilmFragment extends Fragment {
             result.putString("name", name.getText().toString());
             result.putString("description", description.getText().toString());
             getParentFragmentManager().setFragmentResult("key1", result);
-           //? getParentFragmentManager().setFragmentResult("key1", result);
 
         Toast.makeText(getActivity(), "Movie added", Toast.LENGTH_SHORT).show();
         });
