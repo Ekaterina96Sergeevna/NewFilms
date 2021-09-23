@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,10 +19,12 @@ import com.hfad.newfilms.db.FilmsItem;
 import com.hfad.newfilms.FilmsItemAdapter;
 import com.hfad.newfilms.FilmsItemRepository;
 import com.hfad.newfilms.R;
+import com.hfad.newfilms.db.FilmsViewModel;
 
 public class FavoriteFragment extends Fragment implements FilmsItemAdapter.OnDetailFilmsClickListener {
     public static final String TAG = "FavouriteFragment";
     RecyclerView recyclerView;
+    FilmsViewModel filmsViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,26 +34,19 @@ public class FavoriteFragment extends Fragment implements FilmsItemAdapter.OnDet
 
     @Override
     public void OnDetailItemClick(FilmsItem film) {
-//        Fragment fragment = FilmsDetailedFragment.newInstance(filmId);
-//        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.replace(R.id.fragment_container, fragment);
-//        fragmentTransaction.addToBackStack(null);
-//        fragmentTransaction.commit();
+        Fragment fragment = FilmsDetailedFragment.newInstance();
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
+        filmsViewModel.select(film);
     }
 
-    public void onLikeClick(int choiceFilmId) {
+    public void onLikeClick(FilmsItem film) {
+        film.isLiked = !film.isLiked;
         Toast.makeText(getContext(), "Removed from favorite movies", Toast.LENGTH_SHORT).show();
-        FilmsItem choiceFilm = null;
-       // for (FilmsItem filmItem : FilmsItemRepository.getInstance().getItems()) {
-       //     if (filmItem.itemId == choiceFilmId) {
-        //        choiceFilm = filmItem;
-        //    }
-       // }
-        choiceFilm.isLiked = !choiceFilm.isLiked;
-        //обновляем список
-       // FilmsItemRepository.getInstance().getFavoriteFilms();
-        //recyclerView.getAdapter().notifyDataSetChanged();
+        filmsViewModel.update(film);
     }
 
 
@@ -66,13 +62,17 @@ public class FavoriteFragment extends Fragment implements FilmsItemAdapter.OnDet
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewFavorite);
-
-//        FilmsItemAdapter adaptor = new FilmsItemAdapter(FilmsItemRepository.getInstance().getFavoriteFilms(), this);
-//        recyclerView.setAdapter(adaptor);
-        //создание LayoutManager
+        FilmsItemAdapter adapter = new FilmsItemAdapter(this);
+        recyclerView.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.getAdapter().notifyDataSetChanged();
-    }
 
+        filmsViewModel = new ViewModelProvider(requireActivity()).get(FilmsViewModel.class);
+        filmsViewModel.getAllFilmsIsLike().observe(getViewLifecycleOwner(), filmsItems -> {
+            adapter.updateList(filmsItems);
+        });
+
+
+
+    }
 }

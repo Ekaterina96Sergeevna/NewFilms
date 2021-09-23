@@ -51,13 +51,11 @@ public class FilmsDetailedFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
         filmsViewModel = new ViewModelProvider(requireActivity()).get(FilmsViewModel.class);
 
         // Update the cached copy of the words in the adapter.
         filmsViewModel.getSelectedFilm().observe(getViewLifecycleOwner(), film -> {
 
-            Log.d("proverka", "hello");
             name = (TextView)view.findViewById(R.id.name_films);
                     name.setText(film.getName());
 

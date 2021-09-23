@@ -21,7 +21,12 @@ public class FilmsItemAdapter extends RecyclerView.Adapter<FilmsItemViewHolder> 
 
 
     private List<FilmsItem> filmsItemList = new ArrayList<>();
-    private OnDetailFilmsClickListener listener;
+    private final OnDetailFilmsClickListener listener;
+
+    public interface OnDetailFilmsClickListener{
+        void OnDetailItemClick(FilmsItem film);
+        void onLikeClick(FilmsItem film);
+    }
 
     public FilmsItemAdapter(OnDetailFilmsClickListener listener) {
         this.listener = listener;
@@ -61,21 +66,15 @@ public class FilmsItemAdapter extends RecyclerView.Adapter<FilmsItemViewHolder> 
 
         holder.likeButton.setOnClickListener(v ->{
             if(listener != null) {
-                listener.onLikeClick(film.itemId);
+                listener.onLikeClick(filmsItemList.get(position));
+
             }
         });
-
-
     }
 
     public void updateList(List<FilmsItem> list){
         this.filmsItemList = list;
         notifyDataSetChanged();
-    }
-
-    public interface OnDetailFilmsClickListener{
-        void OnDetailItemClick(FilmsItem film);
-        void onLikeClick(int filmId);
     }
 
     @Override

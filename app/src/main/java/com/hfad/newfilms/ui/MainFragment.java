@@ -34,7 +34,6 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
 
     public static final String TAG = "MainFragment";
     private RecyclerView recyclerView;
-    AddFilmFragment addFilmFragment = new AddFilmFragment();
     private FilmsViewModel filmsViewModel;
 
     @Override
@@ -61,15 +60,10 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        filmsViewModel = new ViewModelProvider(this).get(FilmsViewModel.class);
+        filmsViewModel = new ViewModelProvider(requireActivity()).get(FilmsViewModel.class);
 
         // Update the cached copy of the words in the adapter.
-        filmsViewModel.getAllFilms().observe(getViewLifecycleOwner(), new Observer<List<FilmsItem>>() {
-            @Override
-            public void onChanged(List<FilmsItem> filmsItems) {
-                adapter.updateList(filmsItems);
-            }
-        });
+        filmsViewModel.getAllFilms().observe(getViewLifecycleOwner(), filmsItems -> adapter.updateList(filmsItems));
 
 //        if(FilmsItemRepository.getInstance().getItems().isEmpty()){
 
@@ -144,18 +138,9 @@ public class MainFragment extends Fragment implements FilmsItemAdapter.OnDetailF
 
     }
 
-    public void onLikeClick(int choiceFilmId) {
-//        FilmsItemRepository.getInstance().getFavoriteFilms();
-//        //find the right film by filmId
-//        FilmsItem choiceFilm = null;
-//        for (FilmsItem filmItem : FilmsItemRepository.getInstance().getItems()) {
-//            if (filmItem.itemId == choiceFilmId) {
-//                choiceFilm = filmItem;
-//            }
-//        }
-//
-//        choiceFilm.isLiked = !choiceFilm.isLiked;
-//        recyclerView.getAdapter().notifyDataSetChanged(); //обновление
-    }
+    public void onLikeClick(FilmsItem film) {
 
+        film.isLiked = !film.isLiked;
+        filmsViewModel.update(film);
+    }
 }
