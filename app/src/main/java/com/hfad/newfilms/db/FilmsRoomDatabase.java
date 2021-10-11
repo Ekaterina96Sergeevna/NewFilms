@@ -35,8 +35,10 @@ public abstract class FilmsRoomDatabase extends RoomDatabase {
 //                dao.deleteAll();
 
                 FilmsItem film = new FilmsItem(
-                        "Дюна",
-                        "пустыня...",
+                        "Pride & Prejudice",
+                        "Sparks fly when spirited Elizabeth Bennet meets single, rich, and proud Mr. " +
+                                "Darcy. But Mr. Darcy reluctantly finds himself falling in love with a woman beneath his class. " +
+                                "Can each overcome their own pride and prejudice?",
                         0,
                         false
                 );
